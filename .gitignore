@@ -1,0 +1,15 @@
+# Archivos y carpetas a ignorar
+bin/
+obj/
+*.user
+*.suo
+*.cache
+*.log
+.vs/
+*.pdb
+*.exe
+*.dll
+*.db
+*.sqlite
+launchSettings.json
+
