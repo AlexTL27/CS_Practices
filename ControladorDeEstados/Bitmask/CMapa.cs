@@ -27,10 +27,7 @@ namespace Bitmask
         {
             Console.WriteLine("\n  \n");
 
-
             int maxColumnas = 1;
-
-
 
             for (int i = 0; i < mapa.Length; i++)
             {
@@ -70,9 +67,6 @@ namespace Bitmask
                 Console.WriteLine($"                                ==[{TirarDado()}]== = Total:  " + TotalDado);
 
             }
-
-
-
         }
 
         public static int TirarDado()
@@ -98,7 +92,9 @@ namespace Bitmask
         private static string JugadorAvanzo()
         {
             //Este metodo espera que regrese  un objeto, un estado, o nada
+            //Llamara a aletoriedad, y usara solo las partes que dependen de tiro , no de jugada
 
+            Aletoriedad.EventosTiros();
             return "[x]";
         }
     }

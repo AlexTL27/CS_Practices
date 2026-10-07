@@ -25,7 +25,7 @@ namespace Bitmask
         //Podemos guardar todo en el mismo bit array
         // Estados: 0000
         //0001 : Hambre (Aparece cada 3 tiros) reduce 2 puntos de vida por Jugada
-        //0010 : Herido (Reduce 3 puntos de vida por tiro) al azar reduce 8 puntos de vida por jugada
+        //0010 : Herido (Reduce 3 puntos de vida por tiro) al azar, reduce 8 puntos de vida por jugada
         //0100 : Sueño (Aparece cada 5 tiros, si se descansa, el contador se reseteara)   reduce 7 puntos de vida por jugada
         //1000 : Enfermo (Probabilidad de 10% de obtenerlo si Tienes algo mal,) quita 1 punto de vida por tiro 
 
@@ -38,17 +38,6 @@ namespace Bitmask
 
         //Otras cosas que no dependen de guardar en un estado pero sí de que sucedan y desactiven uno
         // Carpa: Reinicia conteo de sueño y cura enfermo
-
-
-        public class Player
-        {
-
-            public int vida = 100;
-
-            public Estados estadosActuales = Estados.Ninguno;
-            public Objetos inventario = Objetos.Ninguno;
-        }
-
 
 
         [Flags]

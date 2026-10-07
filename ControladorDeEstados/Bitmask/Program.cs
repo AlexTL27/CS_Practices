@@ -79,15 +79,48 @@ namespace Bitmask
                     switch (posicionPunteroAcciones)
                     {
                         case 0:
+                           
+                            if (Personaje.HasObject(0))
+                            {
+                                Console.WriteLine($"\nUsando {acciones[0]}");
+                                Personaje.EliminateObject(0);
+                            }
+
                             break;
                         case 1:
+
+                            if (Personaje.HasObject(1))
+                            {
+                                Console.WriteLine($"\nUsando {acciones[1]}");
+                                Personaje.EliminateObject(1);
+
+
+                            }
                             break;
                         case 2:
+
+                            if (Personaje.HasObject(2))
+                            {
+                                Console.WriteLine($"\nUsando {acciones[2]}");
+                                Personaje.EliminateObject(2);
+
+
+                            }
                             break;
                         case 3:
+
+                            if (Personaje.HasObject(3))
+                            {
+                                Console.WriteLine($"\nUsando {acciones[3]}");
+                                Personaje.EliminateObject(3);
+
+
+                            }
                             break;
 
                         case 4:
+                           
+
                             //Usó tirar dado
                             ContinuarJuego(true);
 
@@ -100,8 +133,16 @@ namespace Bitmask
                             ContinuarJuego(false);
 
 
-                            //Mostrar logs de lo que se obtuvo
-                            Console.WriteLine("\n\nEjemplo de LOG:\nObtuviste agua en el punto 4\nobtuviste enfermedad en el punto 5");
+
+                            //LLamar a aletoriedad, usando los eventos para casos donde se completo la jugada, no por tiro
+
+                            foreach(var a in Personaje.UltimosLogs)
+                            {
+                                Console.WriteLine("\n"+a);
+                            }
+
+                            Personaje.UltimosLogs.Clear();
+                           
 
                             break;
                     }
@@ -150,24 +191,22 @@ namespace Bitmask
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write("Vida:   100% --------------");
+            Console.Write($"Vida:   {Personaje.Vida}% --------------");
 
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("-------------- Estados: Sueño, hambre, enfermo");
+            Console.WriteLine($"-------------- Estados: {Personaje.ListarEstados()}");
 
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("Sueño:  88%");
+            Console.WriteLine($"Sueño:  {Personaje.Sueno}%");
 
 
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("Hambre: 66%");
+            Console.WriteLine($"Hambre: {Personaje.Hambre}%");
         }
 
         static void ObjetosInferiores()
         {
           
-
-
             Console.WriteLine("\nAcción: ");
 
             for (int a = 0; a < acciones.Length; a++) 
@@ -176,7 +215,10 @@ namespace Bitmask
                 Console.ForegroundColor = ConsoleColor.White;
 
                 //Si un objeto esta en el bitmask lo pintará de verde
-
+                if (Personaje.HasObject(a))
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                }
 
 
 
@@ -196,7 +238,6 @@ namespace Bitmask
             }
 
         }
-
 
         static void ImprimirEnConsola(ConsoleColor color, string texto)
         {
