@@ -41,12 +41,11 @@ namespace Bitmask
             //44           //87  //20    // 77   //97
             if (numero == numeroUser || (numero > (numeroUser - (Personaje.Suerte / 2)) && numero < (numeroUser + (Personaje.Suerte / 2)))) 
             {
-                Personaje.Suerte = 0;
-
-
-
-
-
+                if (Personaje.AddObject())
+                {
+                    Personaje.Suerte = 0;
+                    Personaje.UltimosLogs.Add("Se encontró un objeto");
+                }
 
                 return;
 
@@ -69,7 +68,40 @@ namespace Bitmask
             }
        
 
-            Personaje.Suerte += 9;
+            Personaje.Suerte += 3;
+
+        }
+
+        public static void EventosJugada()
+        {
+            int numero = _random.Next(0, 101);
+
+            //HAcer que se efectuen los estados
+            Personaje.EfectosEstados();
+
+
+
+            //Posibilidad de que salga carpa
+            if(numero < 9)
+            {
+                Personaje.UltimosLogs.Add("Encontraste una carpa donde descansar, Sueño se ha restablecido y ya no estas enfermo");
+                Personaje.Sueno = 100;
+                Personaje.EliminateEstado(2);
+                Personaje.EliminateEstado(3);
+            }
+
+
+            if(Personaje.HasEstado(0) || Personaje.HasEstado(1) || Personaje.HasEstado(2))
+            {
+                if (Personaje.HasEstado(3)) return;
+
+                if(numero > 50 && numero < 55)
+                {
+                    Personaje.AgregarEstado(3);
+                    Personaje.UltimosLogs.Add("Los efectos en tu cuerpo te empiezan a hacer daño, ahora estas enfermo");
+                }
+            }
+
 
         }
     }

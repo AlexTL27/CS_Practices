@@ -83,6 +83,14 @@ namespace Bitmask
         {
             for (int i = 0; i < pasos; i++)
             {
+                if(pasosDados >= 100)
+                {
+                    Console.Clear();
+                    Console.WriteLine("Has LLegado a tu destino");
+                    return;
+                }
+
+
                 mapa[pasosDados] = JugadorAvanzo();
                 pasosDados++;
             }

@@ -4,7 +4,7 @@ namespace Bitmask
 {
     internal class Program
     {
-        static string[] acciones = { "Comida","Agua","Medicina","Abrigo","Tirar Dados" };
+        static string[] acciones = { "Comida","Agua","Vendas","Abrigo","Tirar Dados" };
         static int posicionPunteroAcciones = 0;
 
         Program() {
@@ -48,6 +48,19 @@ namespace Bitmask
 
             while (true) 
             {
+                if(Personaje.Vida <= 0)
+                {
+                    Console.Clear();
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Has perdido");
+                    break;
+                }
+                if (CMapa.pasosDados >= 100)
+                {
+                    break;
+                }
+
+
 
                 ConsoleKeyInfo teclaPulsada = Console.ReadKey(intercept: true);
 
@@ -78,25 +91,48 @@ namespace Bitmask
 
                     switch (posicionPunteroAcciones)
                     {
+                        //Comida
                         case 0:
                            
                             if (Personaje.HasObject(0))
                             {
                                 Console.WriteLine($"\nUsando {acciones[0]}");
                                 Personaje.EliminateObject(0);
+                                Personaje.Vida += 5;
+                                Personaje.Hambre = 100;
+                                Personaje.EliminateEstado(0);
+                                
+                                if (Personaje.EliminateEstado(3)) Console.WriteLine("Ahora ya no estas enfermo");
+
+                                Console.WriteLine("Hambre se ha restablecido");
+                                
                             }
 
                             break;
+                        //agua
                         case 1:
 
                             if (Personaje.HasObject(1))
                             {
-                                Console.WriteLine($"\nUsando {acciones[1]}");
+                                Console.WriteLine($"\nEl {acciones[1]} es curativa y te ha restablecido un poco de todo");
                                 Personaje.EliminateObject(1);
+
+                                Personaje.Vida += 4;
+                                Personaje.Hambre += 30;
+                                Personaje.Sueno += 30;
+
+                                
+                                //Eliminar hambre y sueño
+                                Personaje.EliminateEstado(0);
+                                Personaje.EliminateEstado(2);
+
+
 
 
                             }
                             break;
+
+                        //Vendas
                         case 2:
 
                             if (Personaje.HasObject(2))
@@ -104,15 +140,30 @@ namespace Bitmask
                                 Console.WriteLine($"\nUsando {acciones[2]}");
                                 Personaje.EliminateObject(2);
 
+                                Personaje.Vida += 25;
+
+                                //ELiminamos el estado de herido
+                                if (Personaje.EliminateEstado(1))
+                                {
+                                    Console.WriteLine("Te has curado de Herido");
+                                }
+                       
 
                             }
                             break;
+
+                        //Abrigo
                         case 3:
 
                             if (Personaje.HasObject(3))
                             {
                                 Console.WriteLine($"\nUsando {acciones[3]}");
                                 Personaje.EliminateObject(3);
+
+                                Personaje.Vida += 6;
+                                Personaje.Sueno += 70;
+                                Personaje.EliminateEstado(2);
+
 
 
                             }
@@ -127,22 +178,27 @@ namespace Bitmask
                             //Es todo lo que va a avanzar
                             CMapa.AvanzarEnElMapa(CMapa.TotalDado);
 
+                            if(CMapa.pasosDados >= 100)
+                            {
+                                break;
+                            }
 
-                            Console.WriteLine($"\n\n\nAvanzaste {CMapa.TotalDado}\nPulsa Cualquier tecla para continuar");
-                            Console.ReadLine();
-                            ContinuarJuego(false);
-
+                            Console.WriteLine($"\n\n\nAvanzaste {CMapa.TotalDado}");
 
 
                             //LLamar a aletoriedad, usando los eventos para casos donde se completo la jugada, no por tiro
+                            Aletoriedad.EventosJugada();
 
                             foreach(var a in Personaje.UltimosLogs)
                             {
-                                Console.WriteLine("\n"+a);
+                                Console.WriteLine($"{a}   |");
                             }
 
                             Personaje.UltimosLogs.Clear();
-                           
+
+                            Console.WriteLine("\nPulsa Cualquier tecla para continuar");
+                            Console.ReadLine();
+                            ContinuarJuego(false);
 
                             break;
                     }

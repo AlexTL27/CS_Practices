@@ -32,7 +32,7 @@ namespace Bitmask
 
         // Objetos: 0000  : Salen todos al azar
         //0001 : Comida ( Cura hambre, y enfermo y restaura 5 puntos de vida)  
-        //0010 : agua (Cura hambre y restaura 3 puntos de vida ) sale 
+        //0010 : agua (Hambre +25, sueño +25 y restaura 3 puntos de vida ) sale 
         //0100 : medicina (Cura herido y restaura 25 puntos de vida)   
         //1000 : Abrigo (Restaura dos puntos de vida y reduce en 2 los restantes de sueño)
 
@@ -60,7 +60,7 @@ namespace Bitmask
             //0000
             Comida = 1 << 0,
             Agua = 1 << 1,
-            Medicina = 1 << 2,
+            Vendas = 1 << 2,
             Abrigo = 1 << 3, //1000
         }
 

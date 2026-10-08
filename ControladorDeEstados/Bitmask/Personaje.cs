@@ -9,6 +9,9 @@ namespace Bitmask
 {
     static class Personaje
     {
+        private static Random _random = new Random();
+
+
         public static int Vida { get; set; } = 100;
         public static int Sueno { get; set; } = 100;
         public static int Hambre { get; set; } = 100;
@@ -43,6 +46,24 @@ namespace Bitmask
 
         }
 
+
+        //Agregar un objeto aletoriamente, si lo tiene, intentar nuevamente y si vuelve a salir ahora si descartarlo
+        public static bool AddObject()
+        {
+
+            int numAgregar = _random.Next(0, 4);
+            if (HasObject(numAgregar)) return false; 
+
+            inventario = inventario | (Objetos)(1 << numAgregar);
+            return true;
+        }
+
+
+        //==========================================
+        //======Cosas relacionadas a estados
+        //==========================================
+
+
         //Ver si personaje tiene un estado
         public static bool HasEstado(int numEstado)
         {
@@ -53,6 +74,20 @@ namespace Bitmask
         {
            estadosActuales =  estadosActuales | ((Estados)(1 << numEstado));
         }
+
+        //Eliminar un objeto
+
+        public static bool EliminateEstado(int numEstado)
+        {
+            if ((estadosActuales & (Estados)(1 << numEstado)) != 0)
+            {
+                estadosActuales = estadosActuales ^ (Estados)(1 << numEstado);
+
+                return true;
+            }
+            return false;
+        }
+
 
 
         //Listar Estados
@@ -77,6 +112,60 @@ namespace Bitmask
 
 
 
+
+        public static void EfectosEstados()
+        {
+      
+            Sueno -= 23;
+            Hambre -= 27;
+
+            //Significa que no tiene el estado
+            if(Sueno > 0)
+            {
+                EliminateEstado(2);
+            }
+            if(Hambre > 0)
+            {
+                EliminateEstado(0);
+            }
+
+
+            //Sueño
+            if (Sueno <= 0)
+            {
+                AgregarEstado(2);
+                Sueno = 0;
+                Vida -= 7;
+                UltimosLogs.Add($"Sueño te ha quitado 7 Puntos de vida");
+            }
+    
+            //Hambre
+            if (Hambre <= 0)
+            {
+                AgregarEstado(0);
+                Hambre = 0;
+                Vida -= 2;
+                UltimosLogs.Add($"Hambre te ha quitado 2 Puntos de vida");
+            }
+  
+
+
+            //HAcer uso de los efectos
+            //HErido
+            if (HasEstado(1))
+            {
+                int restar = _random.Next(1, 9);
+                Vida -= restar;
+                UltimosLogs.Add($"Herido te ha restado {restar} puntos de vida:");
+            }
+
+            //Enfermo
+            if (HasEstado(3))
+            {
+                Vida -= 7;
+                UltimosLogs.Add($"Enfermo te ha restado {7} punto de vida:");
+            }
+        }
         
     }
 }
