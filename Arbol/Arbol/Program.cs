@@ -21,7 +21,11 @@ namespace Arbol
 
             Console.WriteLine("Escribe que tan grande quieres que imprima el pino");
            
-            numeroTotal = Int32.Parse(Console.ReadLine());
+        
+            while(!int.TryParse(Console.ReadLine(), out numeroTotal))
+                {
+                    Console.WriteLine("Número no válido");
+                }
 
             do
             {
