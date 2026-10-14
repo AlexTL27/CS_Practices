@@ -29,7 +29,11 @@
         private void InitializeComponent()
         {
             panelGrafico = new Panel();
-            label1 = new Label();
+            textBox1 = new TextBox();
+            textBox2 = new TextBox();
+            label2 = new Label();
+            EcuacionText = new TextBox();
+            label3 = new Label();
             SuspendLayout();
             // 
             // panelGrafico
@@ -41,21 +45,60 @@
             panelGrafico.TabIndex = 0;
             panelGrafico.Paint += panelGrafico_Paint;
             // 
-            // label1
+            // textBox1
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(21, 49);
-            label1.Name = "label1";
-            label1.Size = new Size(38, 15);
-            label1.TabIndex = 0;
-            label1.Text = "label1";
+            textBox1.Location = new Point(21, 92);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(100, 23);
+            textBox1.TabIndex = 1;
+            textBox1.TextChanged += textBox1_TextChanged;
+            // 
+            // textBox2
+            // 
+            textBox2.Location = new Point(21, 121);
+            textBox2.Name = "textBox2";
+            textBox2.Size = new Size(100, 23);
+            textBox2.TabIndex = 2;
+            textBox2.TextChanged += textBox2_TextChanged;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(32, 190);
+            label2.Name = "label2";
+            label2.Size = new Size(55, 15);
+            label2.TabIndex = 3;
+            label2.Text = "Ecuación";
+            label2.Click += label2_Click;
+            // 
+            // EcuacionText
+            // 
+            EcuacionText.Location = new Point(24, 211);
+            EcuacionText.Name = "EcuacionText";
+            EcuacionText.PlaceholderText = "y=";
+            EcuacionText.Size = new Size(100, 23);
+            EcuacionText.TabIndex = 4;
+            EcuacionText.KeyDown += EcuacionText_KeyDown;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(166, 9);
+            label3.Name = "label3";
+            label3.Size = new Size(38, 15);
+            label3.TabIndex = 5;
+            label3.Text = "label3";
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(label1);
+            Controls.Add(label3);
+            Controls.Add(EcuacionText);
+            Controls.Add(label2);
+            Controls.Add(textBox2);
+            Controls.Add(textBox1);
             Controls.Add(panelGrafico);
             Name = "Form1";
             Text = "Form1";
@@ -66,6 +109,10 @@
         #endregion
 
         private Panel panelGrafico;
-        private Label label1;
+        private TextBox textBox1;
+        private TextBox textBox2;
+        private Label label2;
+        private TextBox EcuacionText;
+        private Label label3;
     }
 }
