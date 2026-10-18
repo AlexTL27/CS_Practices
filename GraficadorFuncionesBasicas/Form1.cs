@@ -180,8 +180,6 @@ namespace GraficadorFuncionesBasicas
             {
                 // Esto evita el molesto sonido de "beep" que hace Windows al presionar Enter en un TextBox
                 e.SuppressKeyPress = true;
-
-                // Aquí mandas a repintar tu panel
                 panelGrafico.Invalidate();
             }
         }
